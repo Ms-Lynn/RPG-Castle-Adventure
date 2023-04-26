@@ -12,9 +12,6 @@
     Tile charateristics.
     '''
 #------------------------------------------------------------------------------
-test = 1
-test2 = 2
-print(test)
 # Current Location
 row = 0
 col = 0
