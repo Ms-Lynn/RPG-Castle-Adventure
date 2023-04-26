@@ -2,7 +2,7 @@
 # Title: RPG: Castle Adventure!
 # Class: Computer Science 30
 # coder: Ms. Lynn
-# last updated: March 22nd, 2023
+# last updated: April 26, 2023
 # version: 006
 ##############################################################################
 ''' Simple Text Adventure Game!
