@@ -14,11 +14,3 @@ added - movement() function
 added - options to walk's sub menu "N,S,E,W" in movement()
 fixed - movement so player can not walk off "map"
 
-v2.0 
-GitHub Name: Map---part-2
-created - empty list to function as an inventory of objects
-created - objects without a dictionary
-added - conditional statements to deal with objects
-
-
-
