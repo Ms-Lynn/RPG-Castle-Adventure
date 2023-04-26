@@ -32,3 +32,16 @@ added - inspectRoom() function to deal with objects in the game
 added - a fuction to deal with the chest object 
 added - a function to deal with the key object 
 added - docStrings for each of the functions
+
+v4.0 
+GitHub Name: Map---Librarys 
+Name: RPG: Castal Adventure! 
+added - library random so the key can generate in a random room 
+added - libary sys so that 'quit' options more efficently end the game
+removed - while loop variables 
+added - messages dictionary for repetative messages in the game 
+fixed - DocString line ups 
+fixed - Headers DocString 
+updated - Header information 
+created - lists for the main menu and directions menu 
+updated - user input to deal ignor capitalization
