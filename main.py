@@ -1,134 +1,141 @@
-##############################################################################
-# Title: RPG: Castle Adventure!
-# Class: Computer Science 30
+###############################################################################
+# Title: Simple Text Adventure Game
 # coder: Ms. Lynn
-# last updated: March 22nd, 2023
-# version: 006
-##############################################################################
-''' Simple Text Adventure Game!
+# version: 002
+###############################################################################
+''' Program creates a simple map using nested lists that a character
+    can move around on through a simple menu.
+    Character now has an inventory to collect 'objects' in.
+    Program has two objects a key and a treasure chest.
+    The key must be in the characters inventory in order to open the chest'''
+#------------------------------------------------------------------------------
+# Current Location
+row = 0
+col = 0
+max_row = 3
+max_col = 2
 
-    Game takes place in a castle, created with a map.
-    Player can choose to move around the map and to look around.
-    Players goal is to find and open a treasure chest. Player wins when they
-    take the gold from the treasure chest. In order to open the teasure chest 
-    the player must find and take a key. Every time the game is started the 
-    key will be placed in a randon room; this is possible because the program 
-    imported a random library.
+inventory = []
 
-    The map is make with an array(nested lists). 
-    Each Map item is a type of tile.
-    Tile detalies are stored in a nested dictionary(database).
-    Map information is now stored in a map.md module.
+playing = True
 
-    Odjects characteristics and current statues are stored in a nested 
-    dictionary(databases).
-    Player has an inventory created by an empty list.
-    Some objects can be picked up and added to the players inventory.
+chest = "closed"
+key = "lost"
 
-    Players can quit the game at anytime, the game will end using sys.exit()
-    a funtion that is imported with the sys library.
+map = [
+     ["Start", "EmptySpace", "SpookySpace"],
+     ["EmptySpace", "EmptySpace", "EmptySpace"],
+     ["SpookySpace", "Treasure", "EmptySpace"],
+     ["EmptySpace", "EmptySpace", "Key"]
+ ]
 
-    All of the players choices are confirmed by printing relivant messages to
-    the consol. Lots of messages repeat so there is a dictionary of common
-    messages that can be referenced and used throught the code.
-    '''
-##############################################################################
-# Imports --------------------------------------------------------------------
-import sys
-import map
-import inventory
-import character
-import message
-
-# Global Variables -----------------------------------------------------------
-# Main Menu choices
-main_menu = ["explore", "search", "view map", "view inventory"]
-# Directions choices for a sub menu
-direction_menu = ["north", "south", "east", "west"]
-
-
-# Functions ------------------------------------------------------------------
-def SetUpGame():
-    '''This fuction will call all the the nessesary setup functions.'''
-    inventory.HideKey()    
-    map.ExportMap()
-
+# Functions -------------------------------------------------------------------
 def Movement():
-    '''When player choosed 'walk' in the main menu it trigers this
-       movement functions. This function will have a sub menu of
-       directions for the user to choose from. When a valid choice
-       is made the global variables row and col[umb] will be changed
-       so that the players current location will update.'''
-    global direction_menu
-    orientating = True
-    while orientating:
-        print("   Choose a direction: ")
-        if not character.row==0:
-            print(f"   -{direction_menu[0].capitalize()}")
-        if not character.row==map.max_row:
-            print(f"   -{direction_menu[1].capitalize()}")
-        if not character.col==map.max_col:
-            print(f"   -{direction_menu[2].capitalize()}")
-        if not character.col==0:
-            print(f"   -{direction_menu[3].capitalize()}")
-        orientating = False
-        dirchoice = input("   Choice: ").lower()
-        if dirchoice == direction_menu[0] and character.row > 0:
-            character.row -= 1
-        elif dirchoice == direction_menu[1] and character.row < map.max_row:
-            character.row += 1
-        elif dirchoice == direction_menu[2] and character.col < map.max_col:
-            character.col += 1
-        elif dirchoice == direction_menu[3] and character.col > 0:
-            character.col -= 1
-        elif dirchoice == "quit":
-            print(f"{message.messages['Quit']} ")
-            sys.exit()
+    global row, col, max_row, max_col
+    while True:
+        print(f"Choose a direction: {row}, {col}")
+        if not row==0:
+            print(f"-North")
+        if not row==max_row:
+            print(f"-South")
+        if not col==max_col:
+            print(f"-East")
+        if not col==0:
+            print(f"-West")
+        dirchoice = input(f"Choice: ")
+        if dirchoice == "North" and row > 0:
+            row -= 1
+            break
+        elif dirchoice == "South" and row < max_row:
+            row += 1
+            break
+        elif dirchoice == "East" and col < max_col:
+            col += 1
+            break
+        elif dirchoice == "West" and col > 0:
+            col -= 1
+            break
         else:
-            print(f"{message.messages['Error']}")
-            orientating = True
+            print(f"Sorry you can not move that direction.")
+
+def FoundTreasure():
+  global inventory, playing, chest
+  thinking = True
+  while thinking:
+    print(f"Would you like to inspect the chest or leave the room?")
+    print(f"-Inspect")
+    print(f"-Leave")
+    choice = input(f"Choice: ")
+    if choice == "Inspect":
+        print(f"The chest appears to be locked.")
+        answering = True
+        while answering:
+            print("Whould you like to try and open it?")
+            print(f"-Yes")
+            print(f"-No")
+            answer = input(f"Answer: ")
+            if answer == "Yes":
+                for item in inventory:
+                    if item == "Key":
+                        chest = "open"
+                        print(f"Congrats your key opened the Chest!!!!")
+                        playing = False
+                        answering = False
+                        thinking = False
+                if chest == "closed":
+                  print(f"You can not open the Treasure Chest.")
+            elif answer == "No":
+                Movement()
+                answering = False
+                thinking = False
+            else:
+                print(f"Sorry that is not an option.")
+    elif choice == "Leave":
+        thinking = False
+        Movement()
+    else:
+        print(f"Sorry that is not an option.")
 
 
-def MainMenu():
-    '''When the game is activated these are all the players inital
-       actions that are possible. This is the games main menu.'''
-    thinking = True
-    while thinking:
-        print("   Choose one of the following options: ")
-        # loop through all main menu options and print to the screen
-        for options in main_menu:
-            print(f"   -{options.capitalize()}")
-        mainChoice = input("   Choice: ").lower()
-        if mainChoice == main_menu[0]: # walk
+def FoundKey():
+    global map
+    while True:
+        print(f"Would you like to pick up the key or leave?")
+        print(f"-Leave")
+        print(f"-Take")
+        decition = input(f"Choise: ")
+        if decition == "Leave":
             Movement()
-            thinking = False
-        elif mainChoice == main_menu[1]: # look
-            inventory.InspectRoom()
-            thinking = False
-        elif mainChoice == main_menu[2]: # view map
-            map.ReadMap()
-            thinking = False
-        elif mainChoice == main_menu[3]: # view inventory
-            inventory.ViewInventory()
-            thinking = False
-        elif mainChoice == "cheat":
-            print(inventory.items["Key"]["Location"])
-        elif mainChoice == "quit":
-            print(f"{message.messages['Quit']} ")
-            sys.exit()
+            break
+        elif decition == "Take":
+            inventory.append("Key")
+            map[row][col] = "EmptySpace"
+            print(f"You now have a Key!")
+            Movement()
+            break
         else:
-            print(f"{message.messages['Error']}") 
+            print(f"Sorry that is not a valid option.")
 
-
-# Main -----------------------------------------------------------------------
-print("Welcome to my Castle!\n")
-print("Goal is to find and open a treasure chest.")
-print("Type Quit at any time to quit the game.\n")
-# Set us game by hiding the key on a random tile
-SetUpGame()
-while True:
-    location_description =  map.map[character.row][character.col]
-    for tile_option in map.tiles:
-      if tile_option == location_description:
-        print(f"{map.tiles[tile_option]['Description']}")
-    MainMenu()
+# Main Code --------------------------------------------------------------------
+while playing:
+    location_description =  map[row][col]
+    if location_description == "Start":
+      print(f"Welcome to my Castle!")
+      print(f"If you want to escape find and open my treasure chest.")
+      Movement()
+    elif location_description == "EmptySpace":
+      print(f"Nothing is in this room.")
+      Movement()
+    elif location_description == "SpookySpace":
+      print(f"This room is very spooky, you better leave quickly!")
+      Movement()
+    elif location_description == "Treasure":
+      if chest == "closed":
+          print(f"There is a giant treasure chest in the middle of the room!")
+      else:
+          print(f"There is an open treasure chest in this room!")
+      FoundTreasure()
+    elif location_description == "Key":
+        print(f"There is a key hanging on the wall!")
+        FoundKey()
+print(f"Thanks for playing!!!!")
