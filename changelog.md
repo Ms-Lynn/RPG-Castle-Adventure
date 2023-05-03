@@ -58,6 +58,7 @@ v6.0
 GitHub Name: Castle Adventure - Branch - version 6
 updated - GitHub 
 removed - old GitHub Replits
+assignment - Modules, program write and reads a text file
 added - write the map to a txt (map.txt)
 updated - table formating by importing library (from tabulate import tabulate)
 added - modules: object.py, inventory.py, character.py
