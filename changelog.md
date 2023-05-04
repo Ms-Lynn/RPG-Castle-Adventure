@@ -67,3 +67,6 @@ fixed - spelling and grammer
 added - the ability to check a players inventory. 
 added - cheat code to main menu so I can find the key easier
 
+v7.0
+GitHub Name: Castle Adventure - Branch - version 7
+
