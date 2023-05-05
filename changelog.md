@@ -69,4 +69,10 @@ added - cheat code to main menu so I can find the key easier
 
 v7.0
 GitHub Name: Castle Adventure - Branch - version 7
+added - master bedroom
+added - exception handling to the files
+added - exception handling for unser input
+added - exception handling messages
+fixed - exception handing to deal with sys.exit() with Replit errors
+note: - replit and sys-exit() are not very compatable
 
