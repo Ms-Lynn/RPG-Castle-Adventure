@@ -9,8 +9,7 @@ import map
 import character
 import message
 
-# Empty list to use as inventory for to store items. 
-inventory = []  
+
 
 # Database for object information.
 items = {

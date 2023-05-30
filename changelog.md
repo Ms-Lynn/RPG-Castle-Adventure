@@ -1,7 +1,5 @@
 Change Log Key Terms:
 added, changed, deprecated, removed, fixed, security
-Optional Terms:
-updated, created, *fix(todo), *debug(todo), *add(todo)
 
 v1.0 
 GitHub Name: Map---part-1
@@ -76,3 +74,9 @@ added - exception handling messages
 fixed - exception handing to deal with sys.exit() with Replit errors
 note: - replit and sys-exit() are not very compatable
 
+v8.0
+GitHub Name: Castle Adventure - Branch - version 8
+convert - character to a class
+change - Inventory to be a character feature
+updated - menu choices to a dictionary
+changed - how main menue options are printed.

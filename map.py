@@ -6,6 +6,28 @@
 from tabulate import tabulate
 import message
 
+class Tile():
+    ''' Parent Class - Tiles tiles for the game board. '''
+  
+    def __init__(tile, name, description):
+        tile.name = name
+        tile.description = description
+
+class Map():
+    ''' Parent Class - games map. '''
+  
+    def __init__(map):
+        map.map[]
+        map.max_row = 3
+        map.max_col = 2
+
+    def create_map(map):
+        for y in range(map.max_row):
+            map.map.appand([])  
+            for x in range(map.max_col):
+                map.map.appand[y](None)           
+    
+
 # tile information
 tile = ["Foyer", "Corridor", "Thrown Room", "Bedroom","Dinning Hall",
         "Ballroom", "Kitchen", "Dungeon", "Master Bedroom"]
